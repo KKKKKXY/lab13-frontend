@@ -1,0 +1,52 @@
+<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+      <mat-card-title>
+        Log in
+      </mat-card-title>
+
+
+      <mat-card-subtitle *ngIf="!home">
+        Please login to access the resource
+      </mat-card-subtitle>
+
+
+
+      <mat-card-content>
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="User name" formControlName="username">
+              <mat-error *ngFor="let validation of validation_messages.username">
+                <mat-error class="error-message" *ngIf="addressForm.get('username').hasError(validation.type)" [innerHTML]=validation.message>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="password">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-error *ngFor="let validation of validation_messages.password">
+                <mat-error class="error-message" *ngIf="addressForm.get('password').hasError(validation.type)" [innerHTML]=validation.message>
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+
+
+        <mat-error *ngIf="isError">
+            <strong>The username, and password is incorrect</strong>
+        </mat-error>
+
+        
+        <div class="row">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!addressForm.valid">Submit</button>        
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </form>
